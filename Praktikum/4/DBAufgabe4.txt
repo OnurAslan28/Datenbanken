@@ -1,0 +1,250 @@
+DROP TABLE mietet;
+DROP TABLE Vermieter;
+DROP TABLE Mieter;
+DROP TABLE Ferienwohnung;
+
+ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD';
+
+CREATE TABLE Vermieter (
+
+VermieterID int PRIMARY KEY NOT NULL,
+
+Name varchar(255),
+
+Strasse varchar(255),
+
+PLZ varchar(255),
+
+Ort varchar(255),
+
+Email varchar(255) UNIQUE,
+
+Telefon varchar(255)
+
+);
+
+INSERT INTO Vermieter VALUES (1,'Max Mustermann','Musterstrasse 1','20000','Hamburg','max.mustermann@gmail.de','040123456');
+
+INSERT INTO Vermieter VALUES (2,'Peter Mensch','Menschallee 42','20001','Hamburg','pmensch@hotmail.com','040748433');
+
+INSERT INTO Vermieter VALUES (3,'Alex Richter','Washingtonallee 13','20002','Hamburg','alex-richter@web.de','040925489');
+
+INSERT INTO Vermieter VALUES (4,'Dennis Diekmeier','Stephansplatz 8','20003','Hamburg','dennis.diekmeier@gmx.de','040985723');
+
+INSERT INTO Vermieter VALUES (5,'Albert Hofmann','Grindelallee 2','20004','Hamburg','albert_hoffmann1@hotmail.de','040556677');
+
+INSERT INTO Vermieter VALUES (6,'Bjoern Kruse','Repsoldstrasse 5','20005','Hamburg','bjoern.kruse11@gmx.com','040234215');
+
+INSERT INTO Vermieter VALUES (7,'Sven Engel','Fahrenberg 6','20006','Hamburg','engel.sven28@gmail.de','040654321');
+
+INSERT INTO Vermieter VALUES (8,'Jannik Schwarz','Alsterhaus 1', '20007','Hamburg','jannik-schwarz-98@gmx.com','040456762');
+
+INSERT INTO Vermieter VALUES (9,'Ludwig Teufel','Moenckebergstrasse 8', '20008','Hamburg','teufel_ludwig@gmail.de','040553388');
+
+INSERT INTO Vermieter VALUES (10,'Sarah Sonne','Wandsbekerstrasse 4','20009','Hamburg','sarah_sonne_96@gmx.com','040113494');
+
+
+CREATE TABLE Ferienwohnung (
+  
+FerienwohnungID int PRIMARY KEY NOT NULL,
+  
+VermieterID int NOT NULL,
+  
+Strasse varchar(255),
+  
+PLZ varchar(255),
+  
+Ort varchar(255),
+  
+Hausnummer varchar(255),
+  
+Zimmeranzahl int,
+  
+Etagen int,
+  
+Flaeche decimal(10,1),
+  
+FOREIGN KEY(VermieterID) REFERENCES Vermieter(VermieterID)
+);
+
+INSERT INTO Ferienwohnung VALUES (1,1,'Wunderland','20001','Hamburg','28',6,3,132.6);
+
+INSERT INTO Ferienwohnung VALUES (2,2,'Rapunzelstrasse','20020','Hamburg','14',6,2,90.8);
+
+INSERT INTO Ferienwohnung VALUES (3,3,'Wandsbekerstrasse','20060','Hamburg','7',7,2,91.3);
+
+INSERT INTO Ferienwohnung VALUES (4,4,'Koenigsstrasse','20150','Hamburg','3',8,2,95.2);
+
+INSERT INTO Ferienwohnung VALUES (5,5,'Friedrichsberg','20300','Hamburg','1',6,3,122.2);
+
+INSERT INTO Ferienwohnung VALUES (6,6,'Hauptstrasse','20350','Hamburg','2',6,4,155.2);
+
+INSERT INTO Ferienwohnung VALUES (7,7,'Kiebitzhorn','20375','Hamburg','42',5,2,122.4);
+
+INSERT INTO Ferienwohnung VALUES (8,8,'Prinzenstrasse','20400','Hamburg','19',4,2,101.1);
+
+INSERT INTO Ferienwohnung VALUES (9,9,'Steindamm','20090','Hamburg','11',5,3,133);
+
+INSERT INTO Ferienwohnung VALUES (10,10,'Alsterhaus','20010','Hamburg','12',6,2,91);
+
+
+CREATE TABLE Mieter (
+
+MieterID int PRIMARY KEY NOT NULL,
+
+Name varchar(255),
+
+Strasse varchar(255),
+
+PLZ varchar(255),
+
+Ort varchar(255),
+
+Email varchar(255),
+
+Telefon varchar(255)
+
+);
+
+INSERT INTO Mieter VALUES (1,'Gustav Maler','Malerchausee 7','20003','Hamburg','der_maler@outlook.com','040789456');
+
+INSERT INTO Mieter VALUES (2,'Regina Jones','Brightonstrasse 80','20001','Hamburg','reginajo@gmail.com','040123908');
+
+INSERT INTO Mieter VALUES (3,'Vladimir Wostok','Strassenstrasse 8','20010','Hamburg','vladiwo@mail.ru','040987351');
+
+INSERT INTO Mieter VALUES (4,'Bob Dude','Opioidallee','20005','Hamburg','dude@bob.com','040741357');
+
+INSERT INTO Mieter VALUES (5,'Alfonso Guiterez','Koehlerstrasse 87','20137','Hamburg','guiterez76@hotmail.com','040318642');
+
+INSERT INTO Mieter VALUES (6,'Kim Hyunjae','Seoulchausee','20001','Hamburg','khyun987@naver.com','040951743');
+
+INSERT INTO Mieter VALUES (7,'Tarou Kimura','Wunderstrasse 6','20006','Hamburg','kimuratarou@yahoo.co.jp','040134927');
+
+INSERT INTO Mieter VALUES (8,'Justin Koenig','Alsterhaus 16', '20007','Hamburg','jkoenig89@web.de','040963182');
+
+INSERT INTO Mieter VALUES (9,'Roman Weidenfeller','Weidenfellerallee', '22058','Hamburg','roman.weidenfeller@gmail.de','040943646');
+
+INSERT INTO Mieter VALUES (10,'Anna Nguyen','Martinlutherstrasse 95','20403','Hamburg','anna_nguyen_137@gmx.com','040960721');
+
+
+CREATE TABLE mietet (
+
+FerienwohnungID int PRIMARY KEY NOT NULL,
+
+MieterID int NOT NULL,
+
+MietBeginn date,
+
+MietEnde date,
+
+FOREIGN KEY(FerienwohnungID) REFERENCES Ferienwohnung(FerienwohnungID),
+
+FOREIGN KEY(MieterID) REFERENCES Mieter(MieterID)
+
+);
+
+INSERT INTO mietet VALUES (1,1,'2019-12-11','2020-01-02');
+
+INSERT INTO mietet VALUES (2,2,'2019-12-23','2019-12-30');
+
+INSERT INTO mietet VALUES (3,3,'2019-08-12','2019-08-19');
+
+INSERT INTO mietet VALUES (4,4,'2019-09-11','2019-09-13');
+
+INSERT INTO mietet VALUES (5,5,'2020-11-11','2021-11-15');
+
+INSERT INTO mietet VALUES (6,6,'2020-10-03','2020-10-05');
+
+INSERT INTO mietet VALUES (7,7,'2020-07-05','2020-07-12');
+
+INSERT INTO mietet VALUES (8,8,'2020-06-24','2020-07-04');
+
+INSERT INTO mietet VALUES (9,9,'2020-08-18','2020-09-01');
+
+INSERT INTO mietet VALUES (10,10,'2020-09-13','2020-09-27');
+
+
+UPDATE Vermieter
+
+SET Ort = 'Lueneburg'
+
+WHERE PLZ > 20009 AND PLZ < 20060;
+
+
+UPDATE Vermieter
+
+SET Ort = 'Bremen'
+
+WHERE PLZ > 20059 AND PLZ < 20301;
+
+
+UPDATE Vermieter
+
+SET Ort = 'Hannover'
+
+WHERE PLZ > 20300;
+
+
+UPDATE Mieter
+
+SET Ort = 'Lueneburg'
+
+WHERE PLZ > 20009 AND PLZ < 20060;
+
+
+UPDATE Mieter
+
+SET Ort = 'Bremen'
+
+WHERE PLZ > 20059 AND PLZ < 20301;
+
+
+UPDATE Mieter
+
+SET Ort = 'Hannover'
+
+WHERE PLZ > 20300;
+
+
+UPDATE Ferienwohnung
+
+SET Ort = 'Lueneburg'
+
+WHERE PLZ > 20009 AND PLZ < 20060;
+
+
+UPDATE Ferienwohnung
+
+SET Ort = 'Bremen'
+
+WHERE PLZ > 20059 AND PLZ < 20301;
+
+
+UPDATE Ferienwohnung
+
+SET Ort = 'Hannover'
+
+WHERE PLZ > 20300;
+
+SELECT Name, PLZ, Ort FROM Mieter UNION
+SELECT Name, PLZ, Ort FROM Vermieter UNION
+
+SELECT COUNT (*) FROM mietet
+WHERE MietBeginn BETWEEN '2020-01-01' AND '2020-12-31';
+
+SELECT AVG(Flaeche) "AVG Flaeche Bremen" FROM Ferienwohnung
+WHERE Ort = 'Bremen';
+
+SELECT MAX(Zimmeranzahl) "Max Zimmer Hannover/Bremen" FROM Ferienwohnung
+WHERE Ort = 'Hannover' OR Ort = 'Bremen';
+
+SELECT Ferienwohnung.Zimmeranzahl, Vermieter.Name, Vermieter.Email, Ferienwohnung.Strasse, Ferienwohnung.Hausnummer, Ferienwohnung.Ort
+FROM Ferienwohnung JOIN Vermieter
+ON Ferienwohnung.VermieterID = Vermieter.VermieterID AND (Ferienwohnung.Ort = 'Bremen' OR Ferienwohnung.Ort = 'Hannover')
+ORDER BY Ferienwohnung.Zimmeranzahl ASC, Vermieter.Name ASC;
+
+
+
+
+
+
